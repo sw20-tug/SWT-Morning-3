@@ -1,5 +1,7 @@
 
 import axios from 'axios'
+import moment from 'moment'
+
 import { NoteData } from '@/model'
 
 const API_URL = 'http://localhost:8080'
@@ -25,5 +27,15 @@ export class NoteService {
           new Date(note.timestamp)))
 
     return notes
+  }
+
+  async addNote (title: string, description: string) {
+    const url = `${API_URL}/notes`
+
+    await axios.post(url, {
+      title: title,
+      description: description,
+      timestamp: moment().unix()
+    })
   }
 }
