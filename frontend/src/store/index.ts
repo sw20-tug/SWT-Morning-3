@@ -19,13 +19,16 @@ export default new Vuex.Store({
   mutations: {
     addNote: (state, payload: NoteData) => {
       state.notes = [...state.notes, payload]
+    },
+
+    setNotes: (state, payload: Array<NoteData>) => {
+      state.notes = payload
     }
   },
   actions: {
-    sync: ({ commit, state }) => {
+    sync: ({ commit }) => {
       service.getNotes()
-        .then(notes =>
-          notes.forEach(n => commit('addNote', n)))
+        .then(notes => commit('setNotes', notes))
     }
   },
   modules: {

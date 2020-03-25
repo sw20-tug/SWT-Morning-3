@@ -1,5 +1,6 @@
 <template>
   <div class="note-container">
+    <NewNote />
     <Note v-for="note in $store.getters.notes" :key="note.id"
       :id="note.id" :title="note.title" :description="note.description"
       :timestamp="note.timestamp" />
@@ -9,10 +10,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Note from './components/Note.vue'
+import NewNote from './components/NewNote.vue'
 
 @Component({
   components: {
-    Note
+    Note,
+    NewNote
   }
 })
 export default class App extends Vue {
