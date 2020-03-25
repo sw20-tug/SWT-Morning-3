@@ -1,29 +1,34 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="note-container">
+    <NewNote />
+    <Note v-for="note in $store.getters.notes" :key="note.id"
+      :id="note.id" :title="note.title" :description="note.description"
+      :timestamp="note.timestamp" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from './components/HelloWorld.vue'
+import Note from './components/Note.vue'
+import NewNote from './components/NewNote.vue'
 
 @Component({
   components: {
-    HelloWorld
+    Note,
+    NewNote
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  mounted () {
+    this.$store.dispatch('sync')
+  }
+}
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.note-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 40rem;
 }
 </style>
