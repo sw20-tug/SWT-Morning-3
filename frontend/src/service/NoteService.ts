@@ -34,8 +34,7 @@ export class NoteService {
 
     await axios.post(url, {
       title: title,
-      description: description,
-      timestamp: moment().unix()
+      description: description
     })
   }
 }
