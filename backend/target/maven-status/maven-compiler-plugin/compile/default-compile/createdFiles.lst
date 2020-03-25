@@ -1,0 +1,3 @@
+com\tugraz\backend\models\Note.class
+com\tugraz\backend\api\NotesRestController.class
+com\tugraz\backend\BackendApplication.class
