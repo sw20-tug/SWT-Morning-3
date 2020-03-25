@@ -2,6 +2,8 @@ package com.tugraz.backend.api;
 
 import com.tugraz.backend.models.Note;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -20,7 +22,9 @@ public class NotesRestController {
         return mockNotesList;
     }
 
-
-
-
+    @PostMapping("/notes")
+    public Note createNote(@RequestBody Note note) {
+        // TODO store into databse
+        return note;
+    }
 }
