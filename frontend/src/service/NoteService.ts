@@ -29,6 +29,13 @@ export class NoteService {
     return notes
   }
 
+  async getNoteById (id: number) {
+    const url = `${API_URL}/notes/${id}`
+    const response = await axios.get(url)
+    const note: NoteData = response.data
+    return note
+  }
+
   async addNote (title: string, description: string) {
     const url = `${API_URL}/notes`
 

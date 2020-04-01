@@ -1,34 +1,28 @@
 <template>
-  <div class="note-container">
-    <NewNote />
-    <Note v-for="note in $store.getters.notes" :key="note.id"
-      :id="note.id" :title="note.title" :description="note.description"
-      :timestamp="note.timestamp" />
+  <div id="app">
+    <router-view/>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import Note from './components/Note.vue'
-import NewNote from './components/NewNote.vue'
-
-@Component({
-  components: {
-    Note,
-    NewNote
-  }
-})
-export default class App extends Vue {
-  mounted () {
-    this.$store.dispatch('sync')
-  }
-}
-</script>
-
 <style lang="scss">
-.note-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 40rem;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
