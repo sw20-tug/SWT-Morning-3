@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import { NoteData } from '@/model'
 
-const API_URL = 'http://localhost:8080'
+const API_URL = 'http://localhost:8090'
 
 type ServerResponseNote = {
   id: number;
