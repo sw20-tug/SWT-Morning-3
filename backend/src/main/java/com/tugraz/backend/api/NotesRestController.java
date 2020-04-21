@@ -54,4 +54,11 @@ public class NotesRestController {
         notesDb.save(currentNote);
         return new ResponseEntity<>(currentNote, HttpStatus.ACCEPTED);
     }
+
+    @DeleteMapping("/notes/{id}")
+    public ResponseEntity deleteNote(@PathVariable String id) {
+        notesDb.deleteById(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
