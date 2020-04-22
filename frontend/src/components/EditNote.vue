@@ -6,7 +6,7 @@
     <div class="note-body">
       <textarea rows="4" v-model="description"></textarea>
     </div>
-    <button>Add</button>
+    <button>Edit</button>
   </div>
 </template>
 
