@@ -29,7 +29,7 @@ export class NoteService {
     return notes
   }
 
-  async getNoteById (id: number) {
+  async getNoteById (id: string) {
     const url = `${API_URL}/notes/${id}`
     const response = await axios.get(url)
     const note: NoteData = response.data
@@ -40,6 +40,15 @@ export class NoteService {
     const url = `${API_URL}/notes`
 
     await axios.post(url, {
+      title: title,
+      description: description
+    })
+  }
+
+  async editNote (id: string, title: string, description: string) {
+    const url = `${API_URL}/notes/${id}`
+
+    await axios.put(url, {
       title: title,
       description: description
     })
