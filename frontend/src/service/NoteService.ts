@@ -52,4 +52,10 @@ export class NoteService {
       description: description
     })
   }
+
+  async deleteNote (id: string) {
+    const url = `${API_URL}/notes/${id}`
+
+    await axios.delete(url)
+  }
 }
