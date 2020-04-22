@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class NotesRestController {
@@ -54,6 +53,7 @@ public class NotesRestController {
         notesDb.save(currentNote);
         return new ResponseEntity<>(currentNote, HttpStatus.ACCEPTED);
     }
+
 
     @DeleteMapping("/notes/{id}")
     public ResponseEntity deleteNote(@PathVariable String id) {
