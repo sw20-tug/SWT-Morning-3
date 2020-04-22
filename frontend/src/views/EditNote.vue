@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import NewNote from '@/components/NewNote.vue'
 import EditNote from '@/components/EditNote.vue'
 
 @Component({
