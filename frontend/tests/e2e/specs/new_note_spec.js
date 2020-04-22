@@ -1,16 +1,12 @@
 describe('New note page', () => {
-  before(() =>
-    cy.exec('echo "{ notes: [] }" > data-mock.json')
-  )
-
   it('successfully loads', () => {
     cy.visit('/#/new')
   })
 
   it('shows post title input', () => {
     cy.visit('/#/new')
-    
-    cy.get('input').then(el => 
+
+    cy.get('input').then(el =>
       expect(el).to.exist
     )
   })
