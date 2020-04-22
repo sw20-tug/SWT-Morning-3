@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class NotesRestController {
@@ -22,6 +23,16 @@ public class NotesRestController {
     @GetMapping("/notes")
     public List<Note> getAllNotes() {
         return notesDb.findAll();
+    }
+
+    @GetMapping("/notes/{id}")
+    public ResponseEntity getNote(@PathVariable String id) {
+        Optional<Note> noteOptional = notesDb.findById(id);
+        if(noteOptional.isPresent()) {
+            return new ResponseEntity<>(noteOptional.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/notes")
