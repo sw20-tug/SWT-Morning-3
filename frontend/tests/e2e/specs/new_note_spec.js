@@ -51,7 +51,7 @@ describe('New note page', () => {
     cy.get('button')
       .click()
 
-    cy.visit('/#/')
+    cy.visit('/')
 
     cy.get('p.note-title')
       .contains(TITLE)
