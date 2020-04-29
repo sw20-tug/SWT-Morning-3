@@ -1,6 +1,18 @@
 <template>
-  <div class="note-container">
-    <NewNote />
+  <div class="view">
+    <div class="view-heading">
+      <div class="action-container">
+        <router-link to="/" class="button icon" style="margin-right: 1rem;">
+          <ArrowLeftCircleIcon size="32" />
+        </router-link>
+      </div>
+
+      <h3>New note</h3>
+    </div>
+
+    <div class="view-content">
+      <NewNote />
+    </div>
   </div>
 </template>
 
@@ -8,9 +20,11 @@
 import { Component, Vue } from 'vue-property-decorator'
 import NewNote from '@/components/NewNote.vue'
 
+import { ArrowLeftCircleIcon } from 'vue-feather-icons'
+
 @Component({
   components: {
-    NewNote
+    NewNote, ArrowLeftCircleIcon
   }
 })
 export default class App extends Vue {
@@ -19,11 +33,3 @@ export default class App extends Vue {
   }
 }
 </script>
-
-<style lang="scss">
-.note-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 40rem;
-}
-</style>

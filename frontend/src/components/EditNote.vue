@@ -1,24 +1,34 @@
 <template>
-  <div class="note">
-    <div class="note-header">
-      <input type="text" v-model="title">
+  <div class="box">
+    <div class="box-header">
+      <div class="box-title">
+        <input type="text" v-model="title" placeholder="Title" style="width: 100%">
+      </div>
+
+      <div class="box-actions">
+        <a @click="editNote" href="#" class="button icon small"><SaveIcon size="24" /></a>
+      </div>
     </div>
-    <div class="note-body">
-      <textarea rows="4" v-model="description"></textarea>
+
+    <div class="box-body">
+      <textarea rows="4" v-model="description" placeholder="Give a few details"></textarea>
     </div>
-    <button @click="editNote">Edit</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
+import { SaveIcon } from 'vue-feather-icons'
+
 import { NoteService } from '../service/NoteService'
 import { NoteData } from '@/model'
 
 const service = new NoteService()
 
-@Component({})
+@Component({
+  components: { SaveIcon }
+})
 export default class Note extends Vue {
   @Prop({ default: 0 }) readonly id!: string
   private title = ''
@@ -40,31 +50,3 @@ export default class Note extends Vue {
   }
 }
 </script>
-
-<style lang="scss">
-  .note {
-    font: 16px/150% sans-serif;
-
-    border: 1px solid #ccc;
-    padding: 1rem;
-
-    &:not(first-child) {
-      margin-top: 0.5rem;
-    }
-
-    & > .note-header {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
-      & > p.note-title {
-        font-weight: 700;
-      }
-
-      & > p.note-date {
-        text-align: right;
-      }
-    }
-  }
-
-</style>
