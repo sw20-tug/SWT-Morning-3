@@ -12,7 +12,7 @@
       <div class="note-container">
         <Note v-for="note in $store.getters.notes" :key="note.id"
           :id="note.id" :title="note.title" :description="note.description"
-          :timestamp="note.timestamp" />
+          :timestamp="note.timestamp" :pinned="note.pinned" :tags="note.tags" />
       </div>
     </div>
   </div>

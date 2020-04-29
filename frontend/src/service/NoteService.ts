@@ -6,10 +6,12 @@ import { NoteData } from '@/model'
 const API_URL = 'http://localhost:8090'
 
 type ServerResponseNote = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   timestamp: number;
+  pinned: boolean;
+  tags: string[];
 }
 
 export class NoteService {
@@ -23,7 +25,9 @@ export class NoteService {
           note.id,
           note.title,
           note.description,
-          new Date(note.timestamp)))
+          new Date(note.timestamp),
+          note.pinned,
+          note.tags))
 
     return notes
   }
@@ -40,16 +44,21 @@ export class NoteService {
 
     await axios.post(url, {
       title: title,
-      description: description
+      description: description,
+      pinned: false,
+      tags: []
     })
   }
 
-  async editNote (id: string, title: string, description: string) {
+  async editNote (id: string, title: string, description: string, pinned: boolean, tags: string[]) {
     const url = `${API_URL}/notes/${id}`
 
     await axios.put(url, {
       title: title,
-      description: description
+      description: description,
+      timestamp: new Date().getTime(), // Math.round((new Date()).getTime() / 1000),
+      pinned: pinned,
+      tags: tags
     })
   }
 

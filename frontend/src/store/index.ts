@@ -14,7 +14,7 @@ export default new Vuex.Store({
     notes: Array<NoteData>()
   },
   getters: {
-    notes: state => state.notes
+    notes: state => state.notes.sort((a, b) => { if (a.pinned && !b.pinned) return -1; if (!a.pinned && b.pinned) return 1; else return 0 })
   },
   mutations: {
     addNote: (state, payload: NoteData) => {
