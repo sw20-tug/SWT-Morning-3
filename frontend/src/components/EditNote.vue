@@ -6,7 +6,9 @@
       </div>
 
       <div class="box-actions">
-        <a @click="editNote" href="#" class="button icon small"><SaveIcon size="24" /></a>
+        <button @click="editNote" class="button icon small">
+          <SaveIcon size="24" />
+        </button>
       </div>
     </div>
 
@@ -44,9 +46,9 @@ export default class Note extends Vue {
     this.tags = note.tags
   }
 
-  editNote () {
-    service.editNote(this.id, this.title, this.description, this.pinned, this.tags)
-      .then(() => this.$router.go(-1))
+  async editNote () {
+    await service.editNote(this.id, this.title, this.description, this.pinned, this.tags)
+    this.$router.go(-1)
   }
 }
 </script>

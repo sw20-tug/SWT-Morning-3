@@ -42,24 +42,28 @@ export class NoteService {
   async addNote (title: string, description: string) {
     const url = `${API_URL}/notes`
 
-    await axios.post(url, {
+    const response = await axios.post(url, {
       title: title,
       description: description,
       pinned: false,
       tags: []
     })
+
+    return response
   }
 
   async editNote (id: string, title: string, description: string, pinned: boolean, tags: string[]) {
     const url = `${API_URL}/notes/${id}`
 
-    await axios.put(url, {
+    const response = await axios.put(url, {
       title: title,
       description: description,
       timestamp: new Date().getTime(), // Math.round((new Date()).getTime() / 1000),
       pinned: pinned,
       tags: tags
     })
+
+    return response
   }
 
   async deleteNote (id: string) {
