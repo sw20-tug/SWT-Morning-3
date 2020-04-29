@@ -48,6 +48,12 @@ If there is no database connection for whatever reason use json mock objects:
 For the integration tests please run:
 
     npm run test:e2e
+    
+### Unit Tests
+
+For the unit tests run:
+
+    mvn test
 
 [node.js]: https://nodejs.org/
 [webpack]: https://webpack.github.io/
