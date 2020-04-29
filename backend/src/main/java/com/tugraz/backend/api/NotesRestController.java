@@ -60,6 +60,15 @@ public class NotesRestController {
         if(note.getTitle() != null) {
             currentNote.setTitle(note.getTitle());
         }
+        if(note.getDateCreated() != null) {
+            currentNote.setDateCreated(note.getDateCreated());
+        }
+        if(note.getPinned() != null) {
+            currentNote.setPinned(note.getPinned());
+        }
+        if(note.getTags() != null) {
+            currentNote.setTags(note.getTags());
+        }
         // store in database, if id exists then it updates current
         notesDb.save(currentNote);
         return new ResponseEntity<>(currentNote, HttpStatus.ACCEPTED);
