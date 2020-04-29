@@ -1,8 +1,9 @@
 package com.tugraz.backend.models;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+
+import java.util.List;
 
 @Data
 public class Note {
@@ -13,23 +14,34 @@ public class Note {
     private String description;
     private Long dateCreated;
     private Boolean pinned;
+    private List<String> tags;
 
     public Note(){
 
     }
 
-    public Note(String title, String description, Long dateCreated, Boolean pinned) {
+    public Note(String title, String description, Long dateCreated, Boolean pinned, List<String> tags) {
         this.title = title;
         this.description = description;
         this.dateCreated = dateCreated;
         this.pinned = pinned;
+        this.tags = tags;
     }
 
-    public Note(String id, String title, String description, Long dateCreated, Boolean pinned) {
+    public Note(String id, String title, String description, Long dateCreated, Boolean pinned, List<String> tags) {
         this.title = title;
         this.description = description;
         this.dateCreated = dateCreated;
         this.pinned = pinned;
+        this.tags = tags;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public String getId() {
