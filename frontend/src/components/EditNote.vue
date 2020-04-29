@@ -6,7 +6,7 @@
     <div class="note-body">
       <textarea rows="4" v-model="description"></textarea>
     </div>
-    <button>Edit</button>
+    <button @click="editNote">Edit</button>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ const service = new NoteService()
 
 @Component({})
 export default class Note extends Vue {
-  @Prop({ default: 0 }) readonly id!: number
+  @Prop({ default: 0 }) readonly id!: string
   private title = ''
   private description = ''
 
@@ -28,6 +28,11 @@ export default class Note extends Vue {
     const note: NoteData = await service.getNoteById(this.id)
     this.title = note.title
     this.description = note.description
+  }
+
+  editNote () {
+    service.editNote(this.id, this.title, this.description)
+      .then(() => this.$router.go(-1))
   }
 }
 </script>

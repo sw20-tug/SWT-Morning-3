@@ -1,6 +1,5 @@
 
 import axios from 'axios'
-import moment from 'moment'
 
 import { NoteData } from '@/model'
 
@@ -29,7 +28,7 @@ export class NoteService {
     return notes
   }
 
-  async getNoteById (id: number) {
+  async getNoteById (id: string) {
     const url = `${API_URL}/notes/${id}`
     const response = await axios.get(url)
     const note: NoteData = response.data
@@ -43,5 +42,20 @@ export class NoteService {
       title: title,
       description: description
     })
+  }
+
+  async editNote (id: string, title: string, description: string) {
+    const url = `${API_URL}/notes/${id}`
+
+    await axios.put(url, {
+      title: title,
+      description: description
+    })
+  }
+
+  async deleteNote (id: string) {
+    const url = `${API_URL}/notes/${id}`
+
+    await axios.delete(url)
   }
 }
