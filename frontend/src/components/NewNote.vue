@@ -6,7 +6,7 @@
       </div>
 
       <div class="box-actions">
-        <button @click="addNewNote" class="button icon">
+        <button @click="addNewNote" class="button icon" name="add">
           <SaveIcon size="32" />
         </button>
       </div>

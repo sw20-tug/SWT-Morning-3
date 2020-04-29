@@ -1,7 +1,7 @@
 describe('Edit note page', () => {
   it('successfully loads', () => {
     cy.visit('/')
-    cy.get('a').contains('edit').click()
+    cy.get('[name="edit"]').first().click()
   })
 
   it('successfully edits', () => {
@@ -16,16 +16,16 @@ describe('Edit note page', () => {
     const CONTENT = generateRandomString(33)
 
     cy.visit('/')
-    cy.get('a').contains('edit').click()
+    cy.get('[name="edit"]').first().click()
     cy.get('input').type('{selectall}{del}'+TITLE)
     cy.get('textarea').type('{selectall}{del}'+CONTENT)
 
     cy.get('button').click()
 
-    cy.get('p.note-title')
+    cy.get('p.box-title')
       .contains(TITLE)
 
-    cy.get('.note-body')
+    cy.get('.box-body')
       .contains(CONTENT)
   })
 })
