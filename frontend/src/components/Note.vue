@@ -51,12 +51,12 @@ export default class Note extends Vue {
   @Prop({ default: '' }) readonly id!: string
   @Prop({ default: '' }) readonly title!: string
   @Prop({ default: '' }) readonly description!: string
-  @Prop({ default: new Date(0) }) readonly timestamp!: Date
+  @Prop({ default: 0 }) readonly timestamp!: number
   @Prop({ default: false }) readonly pinned!: boolean
   @Prop({ default: [] }) readonly tags!: string[]
 
   get date () {
-    return moment(this.timestamp).format('YYYY-MM-DD')
+    return moment.unix(Math.floor(this.timestamp / 1000)).format('DD.MM.YYYY, hh:mm:ss')
   }
 
   deleteNote () {
@@ -65,7 +65,7 @@ export default class Note extends Vue {
   }
 
   togglePinNote () {
-    service.editNote(this.id, this.title, this.description, !this.pinned, this.tags)
+    service.editNote(this.id, this.title, this.description, this.timestamp, !this.pinned, this.tags)
       .then(() => this.$store.dispatch('sync'))
   }
 }
