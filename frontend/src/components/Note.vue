@@ -7,20 +7,20 @@
       </p>
 
       <div class="box-actions">
-        <a @click="togglePinNote" href="#" class="button icon small" tooltip>
-          <a v-if="pinned == null || pinned == false">
+        <a @click="togglePinNote" href="#" class="button icon small">
+          <a v-if="pinned == null || pinned == false" name="pin">
             <AnchorIcon size="24" />
           </a>
-          <a v-if="pinned == true" style="color: green">
+          <a v-if="pinned == true" style="color: green" name="unpin">
             <AnchorIcon size="24" />
           </a>
         </a>
 
-        <router-link :to="`/edit/${id}`" class="button icon small">
+        <router-link :to="`/edit/${id}`" class="button icon small" name="edit">
           <EditIcon size="24" />
         </router-link>
 
-        <a @click="deleteNote" href="#" class="button icon small">
+        <a @click="deleteNote" href="#" class="button icon small" name="delete">
           <Trash2Icon size="24" />
         </a>
       </div>
