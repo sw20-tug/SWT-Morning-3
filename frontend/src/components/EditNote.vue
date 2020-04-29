@@ -33,6 +33,7 @@ export default class Note extends Vue {
   @Prop({ default: 0 }) readonly id!: string
   private title = ''
   private description = ''
+  private timestamp = 0
   private pinned = false
   private tags: string[] = []
 
@@ -40,12 +41,13 @@ export default class Note extends Vue {
     const note: NoteData = await service.getNoteById(this.id)
     this.title = note.title
     this.description = note.description
+    this.timestamp = note.timestamp
     this.pinned = note.pinned
     this.tags = note.tags
   }
 
   editNote () {
-    service.editNote(this.id, this.title, this.description, this.pinned, this.tags)
+    service.editNote(this.id, this.title, this.description, this.timestamp, this.pinned, this.tags)
       .then(() => this.$router.go(-1))
   }
 }

@@ -9,7 +9,7 @@ type ServerResponseNote = {
   id: string;
   title: string;
   description: string;
-  timestamp: number;
+  dateCreated: number;
   pinned: boolean;
   tags: string[];
 }
@@ -25,7 +25,7 @@ export class NoteService {
           note.id,
           note.title,
           note.description,
-          new Date(note.timestamp),
+          note.dateCreated,
           note.pinned,
           note.tags))
 
@@ -50,13 +50,13 @@ export class NoteService {
     })
   }
 
-  async editNote (id: string, title: string, description: string, pinned: boolean, tags: string[]) {
+  async editNote (id: string, title: string, description: string, timestamp: number, pinned: boolean, tags: string[]) {
     const url = `${API_URL}/notes/${id}`
 
     await axios.put(url, {
       title: title,
       description: description,
-      timestamp: new Date().getTime(), // Math.round((new Date()).getTime() / 1000),
+      timestamp: timestamp,
       pinned: pinned,
       tags: tags
     })
