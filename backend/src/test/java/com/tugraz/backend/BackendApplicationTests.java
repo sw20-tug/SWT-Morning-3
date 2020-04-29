@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @SpringBootTest
 class BackendApplicationTests {
@@ -26,6 +29,33 @@ class BackendApplicationTests {
 
         notesDb.deleteById("test");
         assert !notesDb.findById("test").isPresent();
+
+    }
+
+    @Test
+    void updateNote() {
+        // store initial note
+        Note note = notesDb.save(new Note("testTitle", "...", Long.valueOf("123"), false, new ArrayList<>()));
+        // set new variables
+        note.setTitle("testTitle2");
+        note.setDescription(".");
+        note.setDateCreated(Long.valueOf("1"));
+        note.setPinned(true);
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        note.setTags(tags);
+        // update note
+        Note updatedNote = notesDb.save(note);
+
+        assert updatedNote.getId().equals(note.getId());
+        assert updatedNote.getPinned().equals(true);
+        assert updatedNote.getDateCreated().equals(Long.valueOf("1"));
+        assert updatedNote.getTags().equals(tags);
+        assert updatedNote.getTitle().equals("testTitle2");
+        assert updatedNote.getDescription().equals(".");
+
+        // delete after test
+        notesDb.delete(updatedNote);
 
     }
 
