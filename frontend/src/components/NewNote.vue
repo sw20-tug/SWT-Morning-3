@@ -38,7 +38,6 @@ export default class Note extends Vue {
   readonly tags: string[] = []
 
   async addNewNote () {
-    console.log(this.tags)
     await service.addNote(this.title, this.description, this.tags)
     this.$router.go(-1)
   }
