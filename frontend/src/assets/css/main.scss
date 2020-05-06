@@ -87,7 +87,6 @@ h1, h2, h3, h4, h5, h6 {
       display: inline-block;
       padding: 0 1rem;
       margin: 0;
-      word-break: break-all;
 
       & > .box-date {
         font-weight: $base-font-weight;
@@ -102,7 +101,6 @@ h1, h2, h3, h4, h5, h6 {
 
   & > .box-body {
     text-align: justify;
-    word-break: break-all;
     padding: 0 1rem;
   }
 }
@@ -111,6 +109,15 @@ button {
   border: none;
   background-color: inherit;
   padding: 0;
+
+  &:hover {
+    color: $color2;
+  }
+
+  &:active {
+    background-color: $color2;
+    color: #fff;
+  }
 }
 
 a.button.icon, button.button.icon {
@@ -178,4 +185,42 @@ textarea {
 #new-note {
   max-width: 40rem;
   width: 100%;
+}
+
+.tag {
+  border: 1px solid $primary;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-right: 0;
+
+  & > button.button {
+    padding: 0.125rem;
+    border-left: 1px solid $primary;
+
+    &:hover {
+      color: $color2;
+    }
+
+    &:active {
+      color: $color3;
+      background-color: #fff;
+    }
+  }
+}
+
+.tag-input {
+  border: 1px solid $color3;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+
+  & > input[type="text"] {
+    width: 25%;
+    border-color: transparent;
+
+    &:focus {
+      border-color: $color3;
+    }
+  }
 }
