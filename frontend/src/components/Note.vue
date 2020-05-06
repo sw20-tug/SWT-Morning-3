@@ -3,7 +3,8 @@
     <div class="box-header">
       <p class="box-title">
         {{ title }}<br>
-        <small class="box-date">{{ date }}</small>
+        <small class="box-date">{{ date }}</small><br>
+        <small class="box-date">{{ tagText }}</small>
       </p>
 
       <div class="box-actions">
@@ -54,6 +55,14 @@ export default class Note extends Vue {
   @Prop({ default: 0 }) readonly timestamp!: number
   @Prop({ default: false }) readonly pinned!: boolean
   @Prop({ default: [] }) readonly tags!: string[]
+
+  get tagText () {
+    if (this.tags.length === 0) {
+      return ''
+    }
+
+    return 'filed under ' + this.tags.join(', ')
+  }
 
   get date () {
     return moment.unix(Math.floor(this.timestamp / 1000)).format('DD.MM.YYYY, hh:mm:ss')
