@@ -69,6 +69,9 @@ public class NotesRestController {
         if(note.getTags() != null) {
             currentNote.setTags(note.getTags());
         }
+        if(note.getCompleted() != null) {
+            currentNote.setCompleted(note.getCompleted());
+        }
         // store in database, if id exists then it updates current
         notesDb.save(currentNote);
         return new ResponseEntity<>(currentNote, HttpStatus.ACCEPTED);
