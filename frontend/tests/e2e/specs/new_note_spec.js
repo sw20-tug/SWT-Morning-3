@@ -49,7 +49,7 @@ describe('New note page', () => {
     cy.get('textarea')
       .type(CONTENT)
 
-    cy.get('button[name="add"]')
+    cy.get('button')
       .click()
 
     cy.wait(1000)

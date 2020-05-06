@@ -14,7 +14,6 @@
 
     <div class="box-body">
       <textarea rows="4" v-model="description" placeholder="Give a few details"></textarea>
-      <TagHolder :tags="tags" id="tags"></TagHolder>
     </div>
   </div>
 </template>
@@ -25,21 +24,18 @@ import { Component, Vue } from 'vue-property-decorator'
 import { SaveIcon } from 'vue-feather-icons'
 
 import { NoteService } from '../service/NoteService'
-import TagHolder from './TagHolder.vue'
 
 const service = new NoteService()
 
 @Component({
-  components: { SaveIcon, TagHolder }
+  components: { SaveIcon }
 })
 export default class Note extends Vue {
   readonly title: string = ''
   readonly description: string = ''
-  readonly tags: string[] = []
 
   async addNewNote () {
-    console.log(this.tags)
-    await service.addNote(this.title, this.description, this.tags)
+    await service.addNote(this.title, this.description)
     this.$router.go(-1)
   }
 }

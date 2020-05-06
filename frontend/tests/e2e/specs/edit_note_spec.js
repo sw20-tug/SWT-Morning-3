@@ -20,7 +20,7 @@ describe('Edit note page', () => {
     cy.get('input').type('{selectall}{del}'+TITLE)
     cy.get('textarea').type('{selectall}{del}'+CONTENT)
 
-    cy.get('button[name="edit"]').click()
+    cy.get('button').click()
 
     cy.get('p.box-title')
       .contains(TITLE)
