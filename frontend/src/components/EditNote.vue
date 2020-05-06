@@ -14,12 +14,15 @@
 
     <div class="box-body">
       <textarea rows="4" v-model="description" placeholder="Give a few details"></textarea>
+      <TagHolder :tags="tags"></TagHolder>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+
+import TagHolder from './TagHolder.vue'
 
 import { SaveIcon } from 'vue-feather-icons'
 
@@ -29,7 +32,7 @@ import { NoteData } from '@/model'
 const service = new NoteService()
 
 @Component({
-  components: { SaveIcon }
+  components: { SaveIcon, TagHolder }
 })
 export default class Note extends Vue {
   @Prop({ default: 0 }) readonly id!: string
