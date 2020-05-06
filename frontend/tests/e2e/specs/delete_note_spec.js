@@ -21,7 +21,7 @@ describe('Delete note', () => {
     cy.get('textarea')
       .type(CONTENT)
 
-    cy.get('button')
+    cy.get('button[name="add"]')
       .click()
 
     cy.wait(1000)
