@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div id="tagWrapper">
     <span class="tag" v-for="(tag, idx) in tags" :key="`tag-${idx}`">
-      {{ tag }} <button class="button" @click="removeTag(idx)">&times;</button>
+      {{ tag }} <button class="button" id="removeTagButton" @click="removeTag(idx)">&times;</button>
     </span>
 
     <span v-if="tagInputShown" class="tag-input">
-      <input type="text" v-model="currentTag">
-      <button class="button" @click="addCurrentTag">&plus;</button>
+      <input type="text" id="inputTag" v-model="currentTag">
+      <button class="button" id="saveTagButton" @click="addCurrentTag">&plus;</button>
     </span>
 
-    <button class="button" v-if="!tagInputShown" @click="showTagInput()">&plus;</button>
+    <button class="button" id="addTagButton" v-if="!tagInputShown" @click="showTagInput()">&plus;</button>
   </div>
 </template>
 
