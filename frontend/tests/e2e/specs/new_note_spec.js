@@ -22,9 +22,8 @@ describe('New note page', () => {
   it('shows a button named "Add" to add the note', () => {
     cy.visit('/#/new')
 
-    cy.get('button').then(el => {
+    cy.get('button').should('have.attr', 'name', 'add').then(el => {
       expect(el).to.exist
-      expect(el.text()).to.equal('Add')
     })
   })
 
@@ -40,7 +39,9 @@ describe('New note page', () => {
     const TITLE = generateRandomString(10)
     const CONTENT = generateRandomString(10)
 
-    cy.visit('/#/new')
+    cy.visit('/')
+
+    cy.get('a').should('have.attr', 'href', '#/new').click()
 
     cy.get('input')
       .type(TITLE)
@@ -51,12 +52,12 @@ describe('New note page', () => {
     cy.get('button')
       .click()
 
-    cy.visit('/')
+    cy.wait(1000)
 
-    cy.get('p.note-title')
+    cy.get('p.box-title')
       .contains(TITLE)
 
-    cy.get('.note-body')
+    cy.get('.box-body')
       .contains(CONTENT)
   })
 })
