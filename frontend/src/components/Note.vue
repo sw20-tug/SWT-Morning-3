@@ -57,11 +57,15 @@ export default class Note extends Vue {
   @Prop({ default: [] }) readonly tags!: string[]
 
   get tagText () {
-    if (this.tags.length === 0) {
+    if (this.tags != null) {
+      if (this.tags.length === 0) {
+        return ''
+      }
+
+      return 'filed under ' + this.tags.join(', ')
+    } else {
       return ''
     }
-
-    return 'filed under ' + this.tags.join(', ')
   }
 
   get date () {
