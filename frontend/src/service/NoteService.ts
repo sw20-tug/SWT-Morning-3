@@ -39,14 +39,14 @@ export class NoteService {
     return note
   }
 
-  async addNote (title: string, description: string) {
+  async addNote (title: string, description: string, tags: string[]) {
     const url = `${API_URL}/notes`
 
     const response = await axios.post(url, {
       title: title,
       description: description,
       pinned: false,
-      tags: []
+      tags: tags
     })
 
     return response
