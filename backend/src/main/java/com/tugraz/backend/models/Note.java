@@ -3,6 +3,7 @@ package com.tugraz.backend.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -14,7 +15,7 @@ public class Note {
     private String description;
     private Long dateCreated;
     private Boolean pinned = false;
-    private List<String> tags;
+    private List<String> tags = Collections.emptyList();
     private Boolean completed = false;
     private Long dateCompleted;
 
