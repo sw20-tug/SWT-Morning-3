@@ -29,6 +29,23 @@ export default new Vuex.Store({
     sync: ({ commit }) => {
       service.getNotes()
         .then(notes => commit('setNotes', notes))
+    },
+
+    sortByCreationDate: ({ commit, state }) => {
+      function compare (a: NoteData, b: NoteData) {
+        if (a.timestamp < b.timestamp) {
+          return -1
+        }
+        if (a.timestamp > b.timestamp) {
+          return 1
+        }
+        return 0
+      }
+      commit('setNotes', state.notes.sort(compare))
+    },
+
+    sortByTitle: ({ commit, state }) => {
+      commit('setNotes', state.notes.sort((a: NoteData, b: NoteData) => a.title.localeCompare(b.title)))
     }
   },
   modules: {
