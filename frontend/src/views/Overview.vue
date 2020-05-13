@@ -68,7 +68,6 @@ export default class App extends Vue {
   containsDateFilter (timestamp: number) {
     const timestampFormatted = moment.unix(Math.floor(timestamp / 1000)).format('DD.MM.YYYY')
     const dateFilterFormatted = moment.unix(Math.floor(new Date(this.filterDate).getTime() / 1000)).format('DD.MM.YYYY')
-    // console.log(Math.round(new Date(this.filterDate).getTime() / 1000))
     if (timestampFormatted === dateFilterFormatted) {
       return true
     } else {
@@ -79,16 +78,13 @@ export default class App extends Vue {
   filterByDate () {
     // check if date is valid
     if (this.filterDate === '') {
-      console.log("this.filterDate === ''")
       this.filteredNotes = this.$store.getters.notes
     } else {
-      console.log(this.filterDate)
       this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsDateFilter(note.timestamp))
     }
   }
 
   mounted () {
-    console.log('mounted overview')
     service.getNotes().then(value => {
       this.filteredNotes = value.sort((a, b) => { if (a.pinned && !b.pinned) return -1; if (!a.pinned && b.pinned) return 1; else return 0 })
       this.$store.state.notes = this.filteredNotes
