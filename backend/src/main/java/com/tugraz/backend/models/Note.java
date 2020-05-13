@@ -17,6 +17,7 @@ public class Note {
     private Boolean pinned = false;
     private List<String> tags = Collections.emptyList();
     private Boolean completed = false;
+    private Long dateCompleted;
 
     public Note(){
 
@@ -38,13 +39,26 @@ public class Note {
         this.tags = tags;
     }
 
-    public Note(String id, String title, String description, Long dateCreated, Boolean pinned, List<String> tags, Boolean completed) {
+    public Note(String id, String title, String description, Long dateCreated, Boolean pinned, List<String> tags, Boolean completed, Long dateCompleted) {
         this.title = title;
         this.description = description;
         this.dateCreated = dateCreated;
         this.pinned = pinned;
         this.tags = tags;
         this.completed = completed;
+        this.dateCompleted = dateCompleted;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
+    public Long getDateCompleted() {
+        return dateCompleted;
+    }
+
+    public void setDateCompleted(Long dateCompleted) {
+        this.dateCompleted = dateCompleted;
     }
 
     public List<String> getTags() {
