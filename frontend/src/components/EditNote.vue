@@ -14,7 +14,7 @@
 
     <div class="box-body">
       <textarea rows="4" v-model="description" placeholder="Give a few details"></textarea>
-      <TagHolder :tags="tags"></TagHolder>
+      <TagHolder :tags="tags" id="tags"></TagHolder>
     </div>
   </div>
 </template>
