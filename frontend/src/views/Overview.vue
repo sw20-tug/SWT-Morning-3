@@ -36,6 +36,9 @@ import Note from '@/components/Note.vue'
 import { NoteData } from '@/model'
 import { PlusSquareIcon } from 'vue-feather-icons'
 import moment from 'moment'
+import { NoteService } from '@/service/NoteService'
+
+const service = new NoteService()
 
 @Component({
   components: {
@@ -45,10 +48,10 @@ import moment from 'moment'
 export default class App extends Vue {
   private tagFilter = ''
   private filterDate = ''
-  private filteredNotes = this.$store.getters.notes
+  private filteredNotes: NoteData[] = this.$store.getters.notes;
 
   containsTagFilter (tags: string[]) {
-    if (tags.includes(this.tagFilter)) {
+    if (tags != null && tags.includes(this.tagFilter)) {
       return true
     }
     return false
@@ -57,9 +60,9 @@ export default class App extends Vue {
   filterByTag () {
     if (this.tagFilter === '') {
       this.filteredNotes = this.$store.getters.notes
+    } else {
+      this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsTagFilter(note.tags))
     }
-    this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsTagFilter(note.tags))
-    this.$forceUpdate()
   }
 
   containsDateFilter (timestamp: number) {
@@ -76,16 +79,20 @@ export default class App extends Vue {
   filterByDate () {
     // check if date is valid
     if (this.filterDate === '') {
-      // console.log("this.filterDate === ''")
+      console.log("this.filterDate === ''")
       this.filteredNotes = this.$store.getters.notes
+    } else {
+      console.log(this.filterDate)
+      this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsDateFilter(note.timestamp))
     }
-    console.log(this.filterDate)
-    this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsDateFilter(note.timestamp))
   }
 
   mounted () {
-    this.$store.dispatch('sync')
-    this.filteredNotes = this.$store.getters.notes
+    console.log('mounted overview')
+    service.getNotes().then(value => {
+      this.filteredNotes = value.sort((a, b) => { if (a.pinned && !b.pinned) return -1; if (!a.pinned && b.pinned) return 1; else return 0 })
+      this.$store.state.notes = this.filteredNotes
+    })
   }
 
   sortByCreationDate () {
