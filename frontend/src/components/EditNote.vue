@@ -41,6 +41,8 @@ export default class Note extends Vue {
   private timestamp = 0
   private pinned = false
   private tags: string[] = []
+  private completed = false
+  private dateCompleted = 0
 
   async mounted () {
     const note: NoteData = await service.getNoteById(this.id)
@@ -49,10 +51,12 @@ export default class Note extends Vue {
     this.timestamp = note.timestamp
     this.pinned = note.pinned
     this.tags = note.tags
+    this.completed = note.completed
+    this.dateCompleted = note.dateCompleted
   }
 
   async editNote () {
-    await service.editNote(this.id, this.title, this.description, this.timestamp, this.pinned, this.tags)
+    await service.editNote(this.id, this.title, this.description, this.timestamp, this.pinned, this.tags, this.completed, this.dateCompleted)
     this.$router.go(-1)
   }
 }

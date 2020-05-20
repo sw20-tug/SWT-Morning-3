@@ -25,7 +25,8 @@
       <div class="note-container">
         <Note v-for="note in filteredNotes" :key="note.id"
           :id="note.id" :title="note.title" :description="note.description"
-          :timestamp="note.timestamp" :pinned="note.pinned" :tags="note.tags"/>
+          :timestamp="note.timestamp" :pinned="note.pinned" :tags="note.tags"
+          :completed="note.completed" :dateCompleted="note.dateCompleted"/>
       </div>
     </div>
   </div>

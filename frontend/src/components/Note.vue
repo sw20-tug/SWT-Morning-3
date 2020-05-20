@@ -2,7 +2,7 @@
   <div class="box">
     <div class="box-header">
       <p class="box-title">
-        {{ title }}<br>
+        <input type="checkbox" v-model="completed" @change="toggleCompleteNote()">{{ title }}<br>
         <small class="box-date">{{ date }}</small><br>
         <small class="box-date">{{ tagText }}</small>
       </p>
@@ -55,6 +55,8 @@ export default class Note extends Vue {
   @Prop({ default: 0 }) readonly timestamp!: number
   @Prop({ default: false }) readonly pinned!: boolean
   @Prop({ default: [] }) readonly tags!: string[]
+  @Prop({ default: false }) readonly completed!: boolean
+  @Prop({ default: 0 }) readonly dateCompleted!: number
 
   get tagText () {
     if (this.tags != null) {
@@ -78,7 +80,16 @@ export default class Note extends Vue {
   }
 
   togglePinNote () {
-    service.editNote(this.id, this.title, this.description, this.timestamp, !this.pinned, this.tags)
+    service.editNote(this.id, this.title, this.description, this.timestamp, !this.pinned, this.tags, this.completed, this.dateCompleted)
+      .then(() => this.$store.dispatch('sync'))
+  }
+
+  toggleCompleteNote () {
+    let dateCompleted = 0
+    if (this.completed === true) {
+      dateCompleted = new Date().getTime()
+    }
+    service.editNote(this.id, this.title, this.description, this.timestamp, this.pinned, this.tags, this.completed, dateCompleted)
       .then(() => this.$store.dispatch('sync'))
   }
 }

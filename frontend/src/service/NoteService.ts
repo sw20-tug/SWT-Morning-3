@@ -12,6 +12,8 @@ type ServerResponseNote = {
   dateCreated: number;
   pinned: boolean;
   tags: string[];
+  completed: boolean;
+  dateCompleted: number;
 }
 
 export class NoteService {
@@ -27,7 +29,9 @@ export class NoteService {
           note.description,
           note.dateCreated,
           note.pinned,
-          note.tags))
+          note.tags,
+          note.completed,
+          note.dateCompleted))
 
     return notes
   }
@@ -52,7 +56,7 @@ export class NoteService {
     return response
   }
 
-  async editNote (id: string, title: string, description: string, timestamp: number, pinned: boolean, tags: string[]) {
+  async editNote (id: string, title: string, description: string, timestamp: number, pinned: boolean, tags: string[], completed: boolean, dateCompleted: number) {
     const url = `${API_URL}/notes/${id}`
 
     const response = await axios.put(url, {
@@ -60,7 +64,9 @@ export class NoteService {
       description: description,
       timestamp: timestamp,
       pinned: pinned,
-      tags: tags
+      tags: tags,
+      completed: completed,
+      dateCompleted: dateCompleted
     })
 
     return response
