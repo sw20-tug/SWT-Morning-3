@@ -4,7 +4,7 @@
       <p class="box-title">
           {{ title }}<br>
         <small class="box-date">{{ date }}</small><br>
-        <small class="box-date">{{ tagText }}</small>
+        <small class="box-tags">{{ tagText }}</small>
         <small v-if="completed" class="box-date" name="dateCompleted">completed: {{ completedDate }}</small>
       </p>
 

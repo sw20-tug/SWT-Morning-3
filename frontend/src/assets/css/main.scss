@@ -92,6 +92,11 @@ h1, h2, h3, h4, h5, h6 {
         font-weight: $base-font-weight;
         color: lighten(#333, 10%);
       }
+
+      & > .box-tags {
+        font-weight: $base-font-weight;
+        color: lighten(#333, 10%);
+      }
     }
 
     & > .box-actions {
