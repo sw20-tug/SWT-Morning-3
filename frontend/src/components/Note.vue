@@ -4,7 +4,7 @@
       <p class="box-title">
         <input type="checkbox" v-model="completed" @change="toggleCompleteNote()">{{ title }}<br>
         <small class="box-date">{{ date }}</small><br>
-        <small class="box-date">{{ tagText }}</small>
+        <small class="box-tags">{{ tagText }}</small>
       </p>
 
       <div class="box-actions">
