@@ -17,4 +17,12 @@ describe('Overview page', () => {
       }
     })
   })
+  it('mark note as completed', () => {
+    cy.visit('/')
+    cy.get('.note-container').first().parent().find('[name="checkbox-completed"]').first().check({ force: true }).should('be.checked')
+    cy.get('.note-container').first().parent().find('[name="checkbox-completed"]').first().click()
+    cy.get('.note-container').first().parent().find('[name="checkbox-completed"]').first().should('not.be.checked')  cy.get('.note-container').first().parent().find('[name="dateCompleted"]').first().should('exist')
+  })
 })
+
+

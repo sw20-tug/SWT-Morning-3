@@ -2,9 +2,10 @@
   <div class="box">
     <div class="box-header">
       <p class="box-title">
-        <input type="checkbox" v-model="completed" @change="toggleCompleteNote()">{{ title }}<br>
+          {{ title }}<br>
         <small class="box-date">{{ date }}</small><br>
         <small class="box-date">{{ tagText }}</small>
+        <small v-if="completed" class="box-date" name="dateCompleted">completed: {{ completedDate }}</small>
       </p>
 
       <div class="box-actions">
@@ -24,6 +25,11 @@
         <a @click="deleteNote" href="#" class="button icon small" name="delete">
           <Trash2Icon size="24" />
         </a>
+        <label class="done">Done
+          <input type="checkbox" class="checkbox" checked="checked" v-model="completed" @change="toggleCompleteNote()">
+          <span class="check">
+          </span>
+        </label>
       </div>
     </div>
 
@@ -72,6 +78,10 @@ export default class Note extends Vue {
 
   get date () {
     return moment.unix(Math.floor(this.timestamp / 1000)).format('DD.MM.YYYY, hh:mm:ss')
+  }
+
+  get completedDate () {
+    return moment.unix(Math.floor(this.dateCompleted / 1000)).format('DD.MM.YYYY, hh:mm:ss')
   }
 
   deleteNote () {
