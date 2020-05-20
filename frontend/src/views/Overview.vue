@@ -2,17 +2,18 @@
   <div class="view">
     <div class="view-heading">
       <div class="action-container">
-        <button @click="sortByCreationDate">Sort By Creation Date</button>
-        <button @click="sortByTitle">Sort By Title</button>
+        <button id="btn-sort-by-date" @click="sortByCreationDate">Sort By Creation Date</button>
+        <button id="btn-sort-by-title" @click="sortByTitle">Sort By Title</button>
         <div>
           <label>Filter by tags:</label>
           <input type="text" id="myInput" v-model="tagFilter" placeholder="Filter..">
-          <button @click="filterByTag">Filter by tags</button>
+          <button id="btn-filter-by-tag" @click="committedTagFilter = tagFilter">Filter by tags</button>
         </div>
         <div>
-          <input type="text" id="dateInput" v-model="filterDate" placeholder="yyyy/mm/dd">
-          <button @click="filterByDate">Filter by date</button>
+          <input type="text" id="dateInput" v-model="dateFilter" placeholder="yyyy/mm/dd">
+          <button id="btn-filter-by-date" @click="committedDateFilter = dateFilter">Filter by date</button>
         </div>
+        <button id="btn-reset-filters" @click="committedTagFilter = ''; committedDateFilter = ''">Remove filters</button>
 
         <router-link to="/new" class="button icon"><PlusSquareIcon size="32" /></router-link>
       </div>
@@ -45,29 +46,39 @@ const service = new NoteService()
     Note, PlusSquareIcon
   }
 })
-export default class App extends Vue {
+export default class Overview extends Vue {
   private tagFilter = ''
-  private filterDate = ''
-  private filteredNotes: NoteData[] = this.$store.getters.notes;
+  private dateFilter = ''
 
-  containsTagFilter (tags: string[]) {
-    if (tags != null && tags.includes(this.tagFilter)) {
+  private committedTagFilter = ''
+  private committedDateFilter = ''
+
+  containsTag (tag: string, tags: string[]) {
+    if (tags != null && tags.includes(tag)) {
       return true
     }
     return false
   }
 
-  filterByTag () {
-    if (this.tagFilter === '') {
-      this.filteredNotes = this.$store.getters.notes
-    } else {
-      this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsTagFilter(note.tags))
+  get filteredNotes () {
+    let notes = this.$store.getters.notes
+
+    // apply tag filter
+    if (this.committedTagFilter !== '') {
+      notes = notes.filter((note: NoteData) => this.containsTag(this.committedTagFilter, note.tags))
     }
+
+    // apply date filter
+    if (this.committedDateFilter !== '') {
+      notes = notes.filter((note: NoteData) => this.containsDate(this.committedDateFilter, note.timestamp))
+    }
+
+    return notes
   }
 
-  containsDateFilter (timestamp: number) {
+  containsDate (filter: string, timestamp: number) {
     const timestampFormatted = moment.unix(Math.floor(timestamp / 1000)).format('DD.MM.YYYY')
-    const dateFilterFormatted = moment.unix(Math.floor(new Date(this.filterDate).getTime() / 1000)).format('DD.MM.YYYY')
+    const dateFilterFormatted = moment.unix(Math.floor(new Date(filter).getTime() / 1000)).format('DD.MM.YYYY')
     if (timestampFormatted === dateFilterFormatted) {
       return true
     } else {
@@ -75,20 +86,8 @@ export default class App extends Vue {
     }
   }
 
-  filterByDate () {
-    // check if date is valid
-    if (this.filterDate === '') {
-      this.filteredNotes = this.$store.getters.notes
-    } else {
-      this.filteredNotes = this.$store.getters.notes.filter((note: NoteData) => this.containsDateFilter(note.timestamp))
-    }
-  }
-
   mounted () {
-    service.getNotes().then(value => {
-      this.filteredNotes = value.sort((a, b) => { if (a.pinned && !b.pinned) return -1; if (!a.pinned && b.pinned) return 1; else return 0 })
-      this.$store.state.notes = this.filteredNotes
-    })
+    this.$store.dispatch('sync')
   }
 
   sortByCreationDate () {
