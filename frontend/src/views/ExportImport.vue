@@ -6,16 +6,12 @@
 
     <div class="view-container">
       <button @click="doExport">Export</button>
-      <hr>
-      <input type="file" accept="application/json">
-      <button @click="doImport">Import</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { NoteService } from '@/service/NoteService'
 
 @Component({})
 export default class Overview extends Vue {
@@ -24,10 +20,6 @@ export default class Overview extends Vue {
     const blob = new Blob([contents], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     window.open(url)
-  }
-
-  doImport () {
-    console.log('did import')
   }
 }
 </script>
