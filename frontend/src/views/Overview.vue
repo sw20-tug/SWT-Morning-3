@@ -16,6 +16,8 @@
         <button id="btn-reset-filters" @click="committedTagFilter = ''; committedDateFilter = ''">Remove filters</button>
 
         <router-link to="/new" class="button icon"><PlusSquareIcon size="32" /></router-link>
+
+        <router-link to="/io" class="button icon"><HexagonIcon size="32" /></router-link>
       </div>
 
       <h3>Overview</h3>
@@ -36,7 +38,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Note from '@/components/Note.vue'
 import { NoteData } from '@/model'
-import { PlusSquareIcon } from 'vue-feather-icons'
+import { PlusSquareIcon, HexagonIcon } from 'vue-feather-icons'
 import moment from 'moment'
 import { NoteService } from '@/service/NoteService'
 
@@ -44,7 +46,7 @@ const service = new NoteService()
 
 @Component({
   components: {
-    Note, PlusSquareIcon
+    Note, PlusSquareIcon, HexagonIcon
   }
 })
 export default class Overview extends Vue {
