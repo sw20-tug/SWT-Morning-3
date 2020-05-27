@@ -77,4 +77,10 @@ export class NoteService {
 
     await axios.delete(url)
   }
+
+  async importNotes (notes: string) {
+    const url = `${API_URL}/notes/import`
+
+    await axios.post(url, JSON.parse(notes))
+  }
 }
