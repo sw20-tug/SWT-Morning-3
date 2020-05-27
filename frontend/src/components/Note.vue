@@ -25,6 +25,10 @@
         <a @click="deleteNote" href="#" class="button icon small" name="delete">
           <Trash2Icon size="24" />
         </a>
+
+        <a @click="share" href="#" class="button icon small" name="share">
+          <Share2Icon size="24" />
+        </a>
         <label class="done">Done
           <input type="checkbox" class="checkbox" checked="checked" v-model="completed" @change="toggleCompleteNote()">
           <span class="check">
@@ -43,7 +47,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
-import { EditIcon, Trash2Icon, AnchorIcon } from 'vue-feather-icons'
+import { EditIcon, Trash2Icon, AnchorIcon, Share2Icon } from 'vue-feather-icons'
 
 import { NoteService } from '@/service/NoteService'
 
@@ -52,7 +56,7 @@ import moment from 'moment'
 const service = new NoteService()
 
 @Component({
-  components: { EditIcon, Trash2Icon, AnchorIcon }
+  components: { EditIcon, Trash2Icon, AnchorIcon, Share2Icon }
 })
 export default class Note extends Vue {
   @Prop({ default: '' }) readonly id!: string
@@ -63,6 +67,26 @@ export default class Note extends Vue {
   @Prop({ default: [] }) readonly tags!: string[]
   @Prop({ default: false }) readonly completed!: boolean
   @Prop({ default: 0 }) readonly dateCompleted!: number
+
+  share () {
+    const subject = this.title
+
+    const created = `Created at ${moment(this.timestamp).format()}`
+
+    const completed = this.completed
+      ? `Completed at ${moment(this.dateCompleted).format()}`
+      : 'Not completed.'
+
+    const body = [
+      this.description,
+      created,
+      completed
+    ].join('\n\n')
+
+    const link = encodeURI(`mailto:?to=&subject=${subject}&body=${body}`)
+
+    window.open(link)
+  }
 
   get tagText () {
     if (this.tags != null) {
