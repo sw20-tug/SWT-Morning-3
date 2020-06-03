@@ -22,7 +22,7 @@ describe('Edit note page', () => {
 
     cy.get('button[name="edit"]').click()
 
-    cy.get('p.box-title')
+    cy.get('.box-title > .actual-title')
       .contains(TITLE)
 
     cy.get('.box-body')

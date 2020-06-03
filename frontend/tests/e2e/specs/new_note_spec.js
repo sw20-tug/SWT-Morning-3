@@ -41,7 +41,7 @@ describe('New note page', () => {
 
     cy.visit('/')
 
-    cy.get('a').should('have.attr', 'href', '#/new').click()
+    cy.get('[data-cy="new-note"]').click()
 
     cy.get('input')
       .type(TITLE)
@@ -54,7 +54,7 @@ describe('New note page', () => {
 
     cy.wait(1000)
 
-    cy.get('p.box-title')
+    cy.get('.box-title > .actual-title')
       .contains(TITLE)
 
     cy.get('.box-body')
