@@ -250,13 +250,13 @@ class NotesRestControllerTests {
 
     @Test
     @Order(13)
-    void importNotes_returns400 () throws Exception {
+    void importNotesOverwrite_returns200 () throws Exception {
         Note note = new Note();
         note.setId("5bf142459b72e12b2b1b2cc");
         note.setTitle("importNoteFailTitle");
         note.setDescription("importNoteFailDescription");
         mockMvc.perform(post("/notes/import").contentType("application/json")
                 .content(objectMapper.writeValueAsString(Arrays.asList(note))))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isOK());
     }
 }
