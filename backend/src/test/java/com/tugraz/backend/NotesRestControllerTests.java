@@ -257,6 +257,6 @@ class NotesRestControllerTests {
         note.setDescription("importNoteFailDescription");
         mockMvc.perform(post("/notes/import").contentType("application/json")
                 .content(objectMapper.writeValueAsString(Arrays.asList(note))))
-                .andExpect(status().isOK());
+                .andExpect(status().isOk());
     }
 }
