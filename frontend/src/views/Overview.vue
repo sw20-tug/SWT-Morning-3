@@ -56,9 +56,6 @@ import Note from '@/components/Note.vue'
 import { NoteData } from '@/model'
 import { PlusSquareIcon, HexagonIcon, MenuIcon } from 'vue-feather-icons'
 import moment from 'moment'
-import { NoteService } from '@/service/NoteService'
-
-const service = new NoteService()
 
 @Component({
   components: {
