@@ -3,6 +3,7 @@ package com.tugraz.backend.models;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -13,8 +14,10 @@ public class Note {
     private String title;
     private String description;
     private Long dateCreated;
-    private Boolean pinned;
-    private List<String> tags;
+    private Boolean pinned = false;
+    private List<String> tags = Collections.emptyList();
+    private Boolean completed = false;
+    private Long dateCompleted;
 
     public Note(){
 
@@ -34,6 +37,28 @@ public class Note {
         this.dateCreated = dateCreated;
         this.pinned = pinned;
         this.tags = tags;
+    }
+
+    public Note(String id, String title, String description, Long dateCreated, Boolean pinned, List<String> tags, Boolean completed, Long dateCompleted) {
+        this.title = title;
+        this.description = description;
+        this.dateCreated = dateCreated;
+        this.pinned = pinned;
+        this.tags = tags;
+        this.completed = completed;
+        this.dateCompleted = dateCompleted;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
+    public Long getDateCompleted() {
+        return dateCompleted;
+    }
+
+    public void setDateCompleted(Long dateCompleted) {
+        this.dateCompleted = dateCompleted;
     }
 
     public List<String> getTags() {
@@ -82,5 +107,13 @@ public class Note {
 
     public void setDateCreated(Long dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

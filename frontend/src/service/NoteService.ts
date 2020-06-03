@@ -12,6 +12,8 @@ type ServerResponseNote = {
   dateCreated: number;
   pinned: boolean;
   tags: string[];
+  completed: boolean;
+  dateCompleted: number;
 }
 
 export class NoteService {
@@ -27,7 +29,9 @@ export class NoteService {
           note.description,
           note.dateCreated,
           note.pinned,
-          note.tags))
+          note.tags,
+          note.completed,
+          note.dateCompleted))
 
     return notes
   }
@@ -39,20 +43,20 @@ export class NoteService {
     return note
   }
 
-  async addNote (title: string, description: string) {
+  async addNote (title: string, description: string, tags: string[]) {
     const url = `${API_URL}/notes`
 
     const response = await axios.post(url, {
       title: title,
       description: description,
       pinned: false,
-      tags: []
+      tags: tags
     })
 
     return response
   }
 
-  async editNote (id: string, title: string, description: string, timestamp: number, pinned: boolean, tags: string[]) {
+  async editNote (id: string, title: string, description: string, timestamp: number, pinned: boolean, tags: string[], completed: boolean, dateCompleted: number) {
     const url = `${API_URL}/notes/${id}`
 
     const response = await axios.put(url, {
@@ -60,7 +64,9 @@ export class NoteService {
       description: description,
       timestamp: timestamp,
       pinned: pinned,
-      tags: tags
+      tags: tags,
+      completed: completed,
+      dateCompleted: dateCompleted
     })
 
     return response
@@ -70,5 +76,11 @@ export class NoteService {
     const url = `${API_URL}/notes/${id}`
 
     await axios.delete(url)
+  }
+
+  async importNotes (notes: string) {
+    const url = `${API_URL}/notes/import`
+
+    await axios.post(url, JSON.parse(notes))
   }
 }

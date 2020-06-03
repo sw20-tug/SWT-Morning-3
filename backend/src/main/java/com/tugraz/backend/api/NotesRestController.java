@@ -10,9 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class NotesRestController {
@@ -33,6 +31,21 @@ public class NotesRestController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/notes/import")
+    public ResponseEntity<Object> importNotes(@RequestBody List<Note> notes) {
+        List<String> addedNotesIds = new ArrayList<>();
+        for (Note note: notes) {
+            try {
+                // try to save note (can throw error if already exist)
+                addedNotesIds.add(notesDb.save(note).getId());
+            } catch (Exception e) {
+                System.out.println(Arrays.toString(e.getStackTrace()));
+            }
+        }
+
+        return new ResponseEntity<>(addedNotesIds, HttpStatus.OK);
     }
 
     @PostMapping("/notes")
@@ -68,6 +81,12 @@ public class NotesRestController {
         }
         if(note.getTags() != null) {
             currentNote.setTags(note.getTags());
+        }
+        if(note.getCompleted() != null) {
+            currentNote.setCompleted(note.getCompleted());
+        }
+        if(note.getDateCompleted() != null) {
+            currentNote.setDateCompleted(note.getDateCompleted());
         }
         // store in database, if id exists then it updates current
         notesDb.save(currentNote);

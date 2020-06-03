@@ -59,4 +59,27 @@ class BackendApplicationTests {
 
     }
 
+    @Test
+    void markAsCompletedDB() {
+        // store initial note
+        Note note = notesDb.save(new Note("testTitle", "...", Long.valueOf("123"), false, new ArrayList<>()));
+        assert note.getCompleted().equals(false);
+
+        // updated completed property
+        note.setCompleted(true);
+        Note updatedNote = notesDb.save(note);
+        assert updatedNote.getCompleted().equals(true);
+
+        // delete after test
+        notesDb.delete(updatedNote);
+    }
+
+    @Test
+    void markAsCompleted() {
+        // store initial note
+        Note note = new Note("testTitle", "...", Long.valueOf("123"), false, new ArrayList<>());
+        note.setCompleted(true);
+        assert note.getCompleted().equals(true);
+    }
+
 }

@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid $primary;
   border-radius: 0.25rem;
 
-  padding: 0.5rem;
+  padding: 0.5rem 0.25rem;
   margin: 0.5rem;
   width: 20rem;
   background-color: #fff;
@@ -87,30 +87,50 @@ h1, h2, h3, h4, h5, h6 {
       display: inline-block;
       padding: 0 1rem;
       margin: 0;
-      word-break: break-all;
 
       & > .box-date {
+        font-weight: $base-font-weight;
+        color: lighten(#333, 10%);
+      }
+
+      & > .box-tags {
         font-weight: $base-font-weight;
         color: lighten(#333, 10%);
       }
     }
 
     & > .box-actions {
+      flex-basis: 5rem;
       flex-shrink: 0;
+
+      & > * {
+        margin: 0 0.25rem 0.25rem 0;
+      }
     }
   }
 
   & > .box-body {
     text-align: justify;
-    word-break: break-all;
     padding: 0 1rem;
   }
 }
 
 button {
-  border: none;
+  border: 1px solid $color1;
   background-color: inherit;
-  padding: 0;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  border-radius: 0.25rem;
+  color: $color1;
+
+  &:hover {
+    color: $color2;
+  }
+
+  &:active {
+    background-color: $color2;
+    color: #fff;
+  }
 }
 
 a.button.icon, button.button.icon {
@@ -119,6 +139,7 @@ a.button.icon, button.button.icon {
   height: 32px;
   color: $primary;
   border-radius: 0.25rem;
+  border: none;
 
   transition: all 0.1s;
 
@@ -132,7 +153,7 @@ a.button.icon, button.button.icon {
   }
 
   &:active {
-    color: #fff;
+    color: #eeeeee;
     background-color: transparentize($primary, 0.5);
   }
 }
@@ -146,7 +167,7 @@ a.button.icon, button.button.icon {
   }
 }
 
-input[type="text"] {
+input[type="text"], input[type="date"], input[type="file"] {
   font: inherit;
 
   border: none;
@@ -178,4 +199,102 @@ textarea {
 #new-note {
   max-width: 40rem;
   width: 100%;
+}
+
+.tag {
+  border: 1px solid $primary;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-right: 0;
+
+  & > button.button {
+    padding: 0.125rem;
+    border-left: 1px solid $primary;
+
+    &:hover {
+      color: $color2;
+    }
+
+    &:active {
+      color: $color3;
+      background-color: #fff;
+    }
+  }
+}
+
+.tag-input {
+  border: 1px solid $color3;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+
+  & > input[type="text"] {
+    width: 25%;
+    border-color: transparent;
+
+    &:focus {
+      border-color: $color3;
+    }
+  }
+}
+
+.done{
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.done input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.done:hover input ~ .check {
+  background-color: #9EADC8;
+}
+
+.done input:checked ~ .check {
+  background-color: #5B507A;
+}
+
+.check:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.done input:checked ~ .check:after {
+  display: block;
+
+}
+.done .check:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
