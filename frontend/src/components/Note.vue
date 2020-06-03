@@ -1,39 +1,45 @@
 <template>
   <div class="box">
     <div class="box-header">
-      <p class="box-title">
+      <div class="box-title">
+        <div class="actual-title">
+          <label class="done">
+            <input data-cy="checkbox-completed" type="checkbox" class="checkbox" checked="checked" v-model="completed" @change="toggleCompleteNote()">
+            <span class="check">
+            </span>
+          </label>
           {{ title }}<br>
-        <small class="box-date">{{ date }}</small><br>
-        <small class="box-tags">{{ tagText }}</small>
-        <small v-if="completed" class="box-date" name="dateCompleted">completed: {{ completedDate }}</small>
-      </p>
+        </div>
+        <small class="box-date"><strong>created:</strong> <span data-cy="note-date">{{ date }}</span></small><br>
+        <small class="box-tags">
+          <template v-if="tags.length > 0">
+            <strong>tags:</strong> {{ tagText }} <br>
+          </template>
+        </small>
+        <small v-if="completed" class="box-date" name="dateCompleted"><strong>done:</strong> <span data-cy="date-completed">{{ completedDate }}</span></small>
+      </div>
 
       <div class="box-actions">
-        <a @click="togglePinNote" href="#" class="button icon small">
-          <a v-if="pinned == null || pinned == false" name="pin">
+        <a @click="togglePinNote" href="#" class="button icon small" :class="{ inverted: pinned }">
+          <a v-if="pinned == null || pinned == false" name="pin" title="Pin">
             <AnchorIcon size="24" />
           </a>
-          <a v-if="pinned == true" style="color: green" name="unpin">
+          <a v-if="pinned == true" name="unpin" title="Unpin">
             <AnchorIcon size="24" />
           </a>
         </a>
 
-        <router-link :to="`/edit/${id}`" class="button icon small" name="edit">
+        <router-link :to="`/edit/${id}`" class="button icon small" name="edit" title="Edit">
           <EditIcon size="24" />
         </router-link>
 
-        <a @click="deleteNote" href="#" class="button icon small" name="delete">
+        <a @click="deleteNote" href="#" class="button icon small" name="delete" title="Delete">
           <Trash2Icon size="24" />
         </a>
 
-        <a @click="share" href="#" class="button icon small" name="share">
+        <a @click="share" href="#" class="button icon small" name="share" title="Share">
           <Share2Icon size="24" />
         </a>
-        <label class="done">Done
-          <input type="checkbox" class="checkbox" checked="checked" v-model="completed" @change="toggleCompleteNote()">
-          <span class="check">
-          </span>
-        </label>
       </div>
     </div>
 
@@ -94,7 +100,7 @@ export default class Note extends Vue {
         return ''
       }
 
-      return 'filed under ' + this.tags.join(', ')
+      return this.tags.join(', ')
     } else {
       return ''
     }
@@ -128,3 +134,14 @@ export default class Note extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.actual-title {
+  display: flex;
+}
+
+a.inverted {
+  background-color: #5B507A;
+  color: #fff !important;
+}
+</style>

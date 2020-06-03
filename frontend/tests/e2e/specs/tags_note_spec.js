@@ -1,7 +1,7 @@
 describe('Test Note tags', () => {
   it('successfully loads', () => {
   cy.visit('/')
-  cy.get('[name="edit"]').first().click()
+  cy.get('[name="edit"]').first().click({ force: true })
 })
 
   it('successfully edits tags', () => {
@@ -17,7 +17,7 @@ describe('Test Note tags', () => {
     const TAG = generateRandomString(5)
 
     cy.visit('/')
-    cy.get('[name="edit"]').first().click()
+    cy.get('[name="edit"]').first().click({ force: true })
     cy.get('input').type('{selectall}{del}'+TITLE)
     cy.get('textarea').type('{selectall}{del}'+CONTENT)
 
@@ -28,13 +28,13 @@ describe('Test Note tags', () => {
 
     cy.get('button[name="edit"]').click()
 
-    cy.get('p.box-title')
+    cy.get('.box-title > .actual-title')
       .contains(TITLE)
 
     cy.get('.box-body')
       .contains(CONTENT)
 
-    cy.get('p.box-title')
+    cy.get('.box-title')
       .contains(TAG)
   })
 
@@ -62,9 +62,9 @@ describe('Test Note tags', () => {
     cy.wait(1000)
 
     // find the correct edit note that contains TAG
-    cy.get('.box').contains(TAG).parent().parent().find('[name="edit"]').click()
+    cy.get('.box').contains(TAG).parent().parent().find('[name="edit"]', { force: true }).click()
 
-    cy.get('.tag').contains(TAG).find('button[id=removeTagButton]').click()
+    cy.get('.tag').contains(TAG).parent().find('#removeTagButton').click()
     cy.get('button[name="edit"]').click()
 
     cy.get('.note-container').first().should('not.contain', TAG)

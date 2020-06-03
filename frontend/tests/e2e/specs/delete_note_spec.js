@@ -13,7 +13,7 @@ describe('Delete note', () => {
 
     cy.visit('/')
 
-    cy.get('a').should('have.attr', 'href', '#/new').click()
+    cy.get('[data-cy="new-note"]').click()
 
     cy.get('input')
       .type(TITLE)
@@ -26,7 +26,7 @@ describe('Delete note', () => {
 
     cy.wait(1000)
 
-    cy.get('p.box-title')
+    cy.get('.box-title > .actual-title')
       .contains(TITLE)
 
     cy.get('.box-body')
@@ -35,7 +35,7 @@ describe('Delete note', () => {
     cy.get('.note-container').should('contain', TITLE)
 
     // delete it
-    cy.get('.note-container').contains(TITLE).parent().find('[name="delete"]').click()
+    cy.get('.note-container').contains(TITLE).parent().parent().find('[name="delete"]').click()
 
     // check if added note still exists
     cy.get('.note-container').should('not.contain', TITLE)
