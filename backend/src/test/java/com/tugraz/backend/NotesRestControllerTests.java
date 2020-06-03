@@ -16,10 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -237,5 +234,29 @@ class NotesRestControllerTests {
         if (note != null)
             mockMvc.perform(delete("/notes/" + note.getId()))
                     .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(12)
+    void importNotes_returns200 () throws Exception {
+        Note note = new Note();
+        note.setId("5bf142459b72e12b2b1b2cc");
+        note.setTitle("importNoteTitle");
+        note.setDescription("importNoteDescription");
+        mockMvc.perform(post("/notes/import").contentType("application/json")
+                .content(objectMapper.writeValueAsString(Arrays.asList(note))))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(13)
+    void importNotesOverwrite_returns200 () throws Exception {
+        Note note = new Note();
+        note.setId("5bf142459b72e12b2b1b2cc");
+        note.setTitle("importNoteFailTitle");
+        note.setDescription("importNoteFailDescription");
+        mockMvc.perform(post("/notes/import").contentType("application/json")
+                .content(objectMapper.writeValueAsString(Arrays.asList(note))))
+                .andExpect(status().isOk());
     }
 }
